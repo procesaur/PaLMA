@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+    <script src="{{url_for('static', filename='chart.min.js')}}"></script>
+</head>
+<body>
+    {% for model in perps %}
+        *Text perplexity using <b>{{model | safe}}</b>: <b>{{perps[model] | safe}}</b>
+    {% endfor %}
+
+<canvas id="vp"></canvas>
+
+<br/><br/>
+
+    {% for test in report %}
+        <div>
+            <h3>{{test}}
+                {% if report[test][0] == 1 %}
+                    <span class="ok">OK</span>
+                {% else %}
+                    <span class="notok">NOT OK</span>
+                {% endif %}
+                <span> ( probability: {{report[test][1]}} )</span>
+            </h3>
+        </div>
+    {% endfor %}
+
+<script>
+   var ctx = document.getElementById("vp").getContext("2d");
+   const colors = [];
+   colors.push ("rgb(36, 55, 99)", "rgb(255, 110, 49)", "rgb(173, 142, 112)");
+   var lineChart = new Chart(ctx, {
+       type: "line",
+       data: {
+            labels: {{tokens | safe }},
+            datasets: [
+                {% for i, mod in enum(vectors) %}
+                {
+                    label: "{{mod}}",
+                    data: {{ vectors[mod] | safe }},
+                    borderColor: colors["{{i}}"],
+                    fill: false,
+                    lineTension: 0.5
+                },
+                {% endfor %}
+            ]
+       },
+       options: {
+            responsive: false
+       }
+   });
+</script>
+</body>
+</html>

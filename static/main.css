@@ -1,0 +1,96 @@
+:root {
+    --first: #243763;
+    --third: #FF6E31;
+    --second: #AD8E70;
+    --forth: #FFEBB7;
+}
+
+body{
+            margin:0px;
+            font-family: sans-serif;
+            font-size: 12pt
+        }
+
+        br{
+            display: block; /* makes it have a width */
+            content: ""; /* clears default height */
+            margin-top: 12; /* change this to whatever height you want it */
+        }
+
+        .half {
+            min-width: 750px;
+            height: calc(100vh - 26px);
+            width: calc(50vw - 68px);
+            display: inline-block;
+            border: 7px solid var(--first);
+            border-radius: 25px;
+            vertical-align: top;
+            padding: 5px 20px;
+            margin: 1px;
+            background-color: var(--forth);
+            overflow-y: auto
+        }
+
+        textarea {
+            width:calc(100% - 60px);
+            border-radius: 10px;
+            padding:10px;
+            font-size: 12pt;
+            box-sizing: border-box;
+            margin: 20px
+        }
+
+         input[type=submit]  {
+          margin-right: 20px;
+          border: none;
+          background: var(--second);
+          padding: 10px 20px;
+          border-radius: 10px;
+          color: #fff;
+          cursor: pointer;
+          transition: background .2s ease-in-out;
+          font-size: 12pt;
+          float: right;
+        }
+
+        input[type=text],  input[type=number] {
+         border-radius: 10px;
+          width:250px;
+          text-align: center;
+           font-size: 12pt;
+           margin-top:5px;
+
+        }
+
+        section{
+            width: calc(100% - 120px);
+            display: inline-block;
+            border: 3px solid var(--third);
+            border-radius: 25px;
+            vertical-align: top;
+            padding: 20px 30px;
+            margin: 10px;
+        }
+
+        canvas{
+            height:400px;
+            width:100%
+        }
+
+        .footnote{
+            position: absolute; bottom: 20px;
+        }
+        .notok, .ok {
+              margin-right: 20px;
+              border: none;
+              padding: 5px 10px;
+              border-radius: 10px;
+              color: #fff;
+              font-size: 11pt;
+        }
+        .ok {
+            background-color:green
+        }
+        .notok {
+            background-color:red
+        }

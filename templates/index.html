@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+</head>
+
+<body>
+<div class="half">
+    <h2>Input text to process or to use as context</h2>
+    <form target="if" method="post">
+        <textarea rows="4" name="data" placeholder="Type here..."></textarea>
+            <br/>
+        <b style="margin:auto; margin:40px">Select language model*:
+        <input type="text" name="model" placeholder="hugggingface model name" list="models-list"/></b>
+            <br/>
+        <section>
+            <h3>Text perplexity visualisation </h3>
+            Slider size: <input type="number" name="step" placeholder="5"/> (max 10)
+            <input type = "submit" name="pv" value="Visualize" formaction="/api"  style="float:right" />
+            <br/>
+        </section>
+
+        <section>
+            <h3>Generation (GPT-2 only)</h3>
+
+                Text length (in tokens):
+                <input type="number" name="len" placeholder="10" /> (max 100)
+            <br/>
+                Temperature (from most conservative to most creative):
+                <input type="range" min="0" max="1" value="0.75" step="0.01" class="slider" name="temp">
+            <br/>
+
+            <h4>Composite generation (optional parameters)</h4>
+            Select second model*:
+                <input type="text" name="alt" placeholder="hugggingface model name" list="models-list"/>
+            <br/>
+                Input number of candidates:
+                <input type="number" name="count" placeholder="5" /> (max 10)
+
+            <input type = "submit" name="gen" value="Generate" formaction="/api"/>
+            <br/>
+        </section>
+
+        <section>
+             <input type = "submit" name="eval" value="Full Evaluation (Serbian only)" formaction="/api"/>
+        </section>
+    </form>
+    <div>* Will download for local instance! Some models require additional preprocessing files!</div>
+</div>
+
+<iframe class="half" name="if"></iframe>
+
+<datalist id="models-list">
+    {% for item in data %}
+        <option value="{{item}}"></option>
+    {% endfor %}
+</datalist>
+
+</body>
+</html>
