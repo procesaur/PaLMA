@@ -7,12 +7,13 @@ from preprocessing.preprocessing import get_preprocess
 from preprocessing.tokenizer import sr_tokenize
 from torchworks import netpass, tensor2device
 from json import load
+from os import path as px
 
 
-with open("modelname-cache.json", "r", encoding="utf-8") as jf:
+with open(px.join(px.dirname(__file__), "modelname-cache.json"), "r", encoding="utf-8") as jf:
     modellist = load(jf)
 initiated_models = {}
-lock = False
+lock = True
 
 
 def gengen(text, model, length, temp, alt, cn):

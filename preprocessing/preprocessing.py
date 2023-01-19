@@ -109,6 +109,7 @@ def tokens2tags(tokens, keepspace=False):
     chrs = (chr(i) for i in range(maxunicode + 1))
     punctuation = set(c for c in chrs if category(c).startswith("P"))
     tempname = ''.join(choice(ascii_lowercase) for x in range(30))
+    tempname = px.join(px.dirname(__file__), tempname)
 
     if keepspace:
         tokens, _, exclusion = rem_xml(tokens)
