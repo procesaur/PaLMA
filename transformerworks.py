@@ -47,7 +47,7 @@ def full_eval(text):
               "Syntax (word order)": netpass([ps], "bad-ord.pt", False)
               }
 
-    return report, vectors, tokens
+    return report, vectors, tokens, perps
 
 
 def gentext(modelname, inp="", length=100, temp=0.75, samples=1):
@@ -86,7 +86,7 @@ def gentext_plus(model, alt, inp="", length=1024,  temp=0.2, samples=1):
     best_idx = vals.index(min(vals))
     best = outs[best_idx]
     label = f"Candidates were generated using {model} model, and were evaluated using {alt} model"
-    vals = [round(x, 4) for x in vals]
+    vals = [round(x) for x in vals]
     return outs, vals, best, label
 
 

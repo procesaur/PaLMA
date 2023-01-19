@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h2>About</h2>
+    <p>
+        Application is developed in support of the University of Belgrade doctoral dissertation
+        <i>Composite pseudogrammars based on parallel language models of Serbian</i> by Mihailo Škorić.
+    </p>
+    <p>
+        Usage instructions are shown bellow for each of three usage scenarios:
+    </p>
+</div>
+<div>
+    <h2>Perplexity visualisation</h2>
+    requirements:
+    <ul>
+        <li>Inputted text</li>
+        <li>Selection of language model</li>
+        <li>Slider size definition</li>
+    </ul>
+    <p>
+        Any kind of text is accepted as input. Inputted text will be truncated if too long!
+    </p>
+    <p>
+        Easiest way to select language model is to paste its huggingface id, eg. <i>procesaur/gpt2-srlat</i>.
+        The model will be downloaded to a local computer if it is not already!
+        <br/>For visualisation language models like GPT and BERT (and perhaps other) should work.
+        <br/>Selected model should ideally be applicable for the inputted text,
+        eg. the language of the model and text should match.
+    </p>
+    <p>
+        Slider size should be set between 2 and 10, and it will define the size of the token-n-grams
+        being evaluated using the model, in order to produce the final values.
+        <br/>The shorter the text, the higher impact of this variable will be.
+    </p>
+    <p>In so, the parameters
+        <img class="helpimg" src="{{url_for('static', filename='help1.png')}}"/>
+        will output:
+        <img class="helpimg" src="{{url_for('static', filename='help2.png')}}"/>
+    </p>
+</div>
+
+<div>
+    <h2>Generation</h2>
+    requirements:
+    <ul>
+        <li>Inputted text</li>
+        <li>Selection of (GPT) language model </li>
+        <li>Outputted text length definition</li>
+        <li>Temperature definition</li>
+    </ul>
+    and optionally:
+    <ul>
+        <li>Number of outputs definition</li>
+        <li>Selection of the second model that will evaluate all of the outputs</li>
+    </ul>
+    <p>
+        Again, any kind of text is accepted as input. Inputted text will be truncated if too long!
+    </p>
+    <p>
+        Easiest way to select language model is to paste its huggingface id, eg. <i>procesaur/gpt2-srlat</i>.
+        The model will be downloaded to a local computer if it is not already!
+        <br/>Any GPT2 (and just maybe another generative) model should work.
+    </p>
+    <p>
+        Outputted text length can be set to a 100 tokens max (if you do not edit source code),
+        and it represents the length of the newly generated text, not regarding the input
+    </p>
+    <p>
+        Temperature parameter set between 0 and 1 using a slider defines weather, and how much will the generated text be unique.
+        <br/>Setting the temperature to 0 will result in most conservative generation,
+        and setting it to 1 will result in most far-fetched text.
+    </p>
+    <p>
+        Number of outputs simply defines the number of outputted samples the model will generate.
+        <br/> If nothing is selected, default is 1.
+    </p>
+    <p>
+        Second language model is selected just like the first eg. <i>procesaur/gpt2-srlat</i>,
+        and any language models like GPT and BERT (and perhaps other) should work.
+        <br/>This model will be used to evaluate generated samples.
+        <br/>If it is applied, perplexities will be shown on the right side of each generated sample.
+    </p>
+    <p>In so, the parameters
+        <img class="helpimg" src="{{url_for('static', filename='help3.png')}}"/>
+        will output:
+        <img class="helpimg" src="{{url_for('static', filename='help4.png')}}"/>
+    </p>
+</div>
+<div>
+  <h2>Full Evaluation (Serbian only)</h2>
+    requirements:
+    <ul>
+        <li>Inputted text</li>
+        <li>Specialized resources and tools on the local computer</li>
+    </ul>
+    <p>
+        Any kind of text is accepted as input, but it will be truncated if too long!
+        Of course, you should input text on Serbian or similar language.
+    </p>
+    <p>
+        If you are running this on a local instance, you probably will not be able to use this feature,
+        as certain tools and files, such as TreeTagger and Serbian Morphological Dictionary is needed for preprocessing.
+        <br/>
+    </p>
+    <p>If you input a sentence:
+        <br/><i>Tokom naredna tri meseca, Džejk i Nejtiri se zaljubljuju dok on počinje da se povezuje sa domorocima.</i>
+        You will receive an output:
+        <img class="helpimg" src="{{url_for('static', filename='help5.png')}}"/>
+    </p>
+    <p>
+        The graph represents different disturbances in perplexity (eg. semantical > orange and syntactical > brown)
+        Above the graph nominal perplexity for each model is presented,
+        and bellow the graph there are four different measures of the correctness.
+        <br/>Each is tagged with either <b>OK</b> or <b>NOT OK</b>, followed by the probability of that choice.
+        the four measures are:
+        <ul>
+            <li>General -- overall correctness</li>
+            <li>Semantics -- semantical correctness</li>
+            <li>Syntax (forms) -- syntactical correctness regarding word forms</li>
+            <li>Syntax (word order) -- syntactical correctness regarding word order in the sentences</li>
+        </ul>
+    </p>
+</div>
+
+</body>
+</html>

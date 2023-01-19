@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+    <script>
+        function req(){
+            var html_string= "Request sent!";
+            document.getElementById('if').src = "data:text/html;charset=utf-8," + escape(html_string);
+        }
+        function help(){
+            document.getElementById('if').src = "/help";
+        }
+    </script>
 </head>
 
 <body>
 <div class="half">
-    <h2>Input text to process or to use as context</h2>
-    <form target="if" method="post">
+    <h2>Input text to process or to use as context <span class="help" onclick="help()">?</span></h2>
+    <form target="if" method="post" onsubmit="req()">
         <textarea rows="4" name="data" placeholder="Type here..."></textarea>
             <br/>
         <b style="margin:auto; margin:40px">Select language model*:
@@ -49,7 +58,7 @@
     <div>* Will download for local instance! Some models require additional preprocessing files!</div>
 </div>
 
-<iframe class="half" name="if"></iframe>
+<iframe class="half" name="if" id="if"></iframe>
 
 <datalist id="models-list">
     {% for item in data %}

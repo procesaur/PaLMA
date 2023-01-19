@@ -18,12 +18,18 @@ def api_help():
     return render_template('api_help.html', data=request.root_url)
 
 
+@app.route('/help')
+def about():
+    return render_template('help.html')
+
+
 @app.route('/api', methods=['POST', 'GET'])
 def api():
     args = process_req(request)
     if len(args) == 1:
-        report, vectors, tokens = full_eval(*args)
-        return render_template("evaluation_report.html", report=report, vectors=vectors, tokens=tokens, enum=enumerate)
+        report, vectors, tokens, perps = full_eval(*args)
+        return render_template("evaluation_report.html", enum=enumerate, round=round,
+                               report=report, vectors=vectors, tokens=tokens, perps=perps)
     elif len(args) == 3:
         perp, model, vals, tokens = visualize(*args)
         return render_template("perplexity_report.html", perp=perp, vals=vals, tokens=tokens, model=model)

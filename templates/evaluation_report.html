@@ -7,7 +7,7 @@
 </head>
 <body>
     {% for model in perps %}
-        *Text perplexity using <b>{{model | safe}}</b>: <b>{{perps[model] | safe}}</b>
+        <p>*Text perplexity using <i>{{model | safe}}</i>: <b>{{round(perps[model]) | safe}}</b></p>
     {% endfor %}
 
 <canvas id="vp"></canvas>

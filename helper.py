@@ -13,7 +13,7 @@ def process_req(req):
         step = limit(int(query_parameters.get('step')), 2, 10)
         args = [text, model, step]
     else:
-        length = limit(int(query_parameters.get('len')), 10, 100)
+        length = limit(int(query_parameters.get('len')), 1, 100)
         temp = limit(float(query_parameters.get('temp')), 0, 1)
         if query_parameters.get('count'):
             cn = limit(int(query_parameters.get('count')), 1, 10)
