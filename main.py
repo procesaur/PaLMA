@@ -1,5 +1,5 @@
 from flask import Flask, request, Response, render_template, make_response
-from helper import process_req
+from helper import limit
 from os import environ
 from transformerworks import gengen, full_eval, visualize, modellist
 
@@ -37,6 +37,29 @@ def api():
         outs, perplexities, best, label = gengen(*args)
         return render_template("generation_report.html", zip=zip,
                                generated=outs, perplexities=perplexities, best=best, label=label)
+
+
+def process_req(req):
+    query_parameters = req.args
+    if len(query_parameters) == 0:
+        query_parameters = req.form
+    text = limit(int(query_parameters.get('data')), 1, 300)
+    model = query_parameters.get('model')
+    if "eval" in query_parameters:
+        args = [text]
+    elif "pv" in query_parameters:
+        step = limit(int(query_parameters.get('step')), 2, 10)
+        args = [text, model, step]
+    else:
+        length = limit(int(query_parameters.get('len')), 1, 100)
+        temp = limit(float(query_parameters.get('temp')), 0, 1)
+        if query_parameters.get('count'):
+            cn = limit(int(query_parameters.get('count')), 1, 10)
+        else:
+            cn = 1
+        alt = query_parameters.get('alt')
+        args = [text, model, length, temp, alt, cn]
+    return args
 
 
 if __name__ == "__main__":

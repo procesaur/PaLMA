@@ -108,8 +108,7 @@ def tokens2tags(tokens, keepspace=False):
     quotes = ''.join(c for c in (chr(i) for i in range(0x110000)) if category(c) in ('Pf', 'Pi')) + "„“"
     chrs = (chr(i) for i in range(maxunicode + 1))
     punctuation = set(c for c in chrs if category(c).startswith("P"))
-    tempname = ''.join(choice(ascii_lowercase) for x in range(30))
-    tempname = px.join(px.dirname(__file__), tempname)
+    tempname = px.join(px.dirname(__file__), ''.join(choice(ascii_lowercase) for x in range(30)))
 
     if keepspace:
         tokens, _, exclusion = rem_xml(tokens)

@@ -18,14 +18,14 @@
 <div class="half">
     <h2>Input text to process or to use as context <span class="help" onclick="help()">?</span></h2>
     <form target="if" method="post" onsubmit="req()">
-        <textarea rows="4" name="data" placeholder="Type here..."></textarea>
+        <textarea required maxlength="300" rows="4" name="data" placeholder="Type here..."></textarea>
             <br/>
         <b style="margin:auto; margin:40px">Select language model*:
         <input type="text" name="model" placeholder="hugggingface model name" list="models-list"/></b>
             <br/>
         <section>
             <h3>Text perplexity visualisation </h3>
-            Slider size: <input type="number" name="step" placeholder="5"/> (max 10)
+            Slider size: <input type="number" min="2" max="10" name="step" placeholder="5"/> (max 10)
             <input type = "submit" name="pv" value="Visualize" formaction="/api"  style="float:right" />
             <br/>
         </section>
@@ -34,7 +34,7 @@
             <h3>Generation (GPT-2 only)</h3>
 
                 Text length (in tokens):
-                <input type="number" name="len" placeholder="10" /> (max 100)
+                <input type="number" name="len" placeholder="10" min="1" max="100" /> (max 100)
             <br/>
                 Temperature (from most conservative to most creative):
                 <input type="range" min="0" max="1" value="0.75" step="0.01" class="slider" name="temp">
@@ -45,7 +45,7 @@
                 <input type="text" name="alt" placeholder="hugggingface model name" list="models-list"/>
             <br/>
                 Input number of candidates:
-                <input type="number" name="count" placeholder="5" /> (max 10)
+                <input type="number" name="count" placeholder="5" min="1" max="10" /> (max 10)
 
             <input type = "submit" name="gen" value="Generate" formaction="/api"/>
             <br/>
