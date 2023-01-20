@@ -4,7 +4,7 @@
 
 ## About
 
-Application is developed in support of the University of Belgrade doctoral dissertation _Composite pseudogrammars based on parallel language models of Serbian_ by Mihailo Škorić.
+Application is developed in support of the University of Belgrade doctoral dissertation _Composite pseudogrammars based on parallel language models of Serbian_ by Mihailo Škorić under the supervision of Ranka Stanković.
 
 Usage instructions are shown bellow for each of three usage scenarios:
 
