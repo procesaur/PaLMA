@@ -43,7 +43,7 @@ def process_req(req):
     query_parameters = req.args
     if len(query_parameters) == 0:
         query_parameters = req.form
-    text = limit(int(query_parameters.get('data')), 1, 300)
+    text = limit(query_parameters.get('data'), 1, 300)
     model = query_parameters.get('model')
     if "eval" in query_parameters:
         args = [text]

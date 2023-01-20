@@ -2,10 +2,14 @@ from os import name, remove
 
 
 def limit(x, min, max):
-    if x < min:
-        x = min
-    if x > max:
-        x = max
+    if isinstance(x, str):
+        if len(x) > max:
+            x = x[:max]
+    else:
+        if x < min:
+            x = min
+        if x > max:
+            x = max
     return x
 
 
