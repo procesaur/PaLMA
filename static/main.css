@@ -18,7 +18,7 @@ br{
 }
 
 .half {
-    min-width: 750px;
+    min-width: 500px;
     height: calc(100vh - 26px);
     width: calc(50vw - 68px);
     display: inline-block;
@@ -43,7 +43,7 @@ textarea {
  input[type=submit]  {
   margin-right: 20px;
   border: none;
-  background: var(--second);
+  background: var(--first);
   padding: 10px 20px;
   border-radius: 10px;
   color: #fff;
@@ -68,7 +68,7 @@ section{
     border: 3px solid var(--third);
     border-radius: 25px;
     vertical-align: top;
-    padding: 20px 30px;
+    padding: 5px 30px 10px 30px;
     margin: 10px;
 }
 
@@ -113,3 +113,18 @@ canvas{
     max-width:900px;
     display:block;
 }
+
+output{
+    font-weight:bold;
+}
+
+.slider{
+    margin:10px;
+    width:200px;
+}
+
+h2,h3{
+    margin:15px
+}
+
+

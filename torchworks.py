@@ -167,4 +167,6 @@ def netpass(input, net, cnn):
             y_prob_list.append(y_pred_prob.cpu().numpy())
     y_pred_list = [a.squeeze().tolist() for a in y_pred_list]
     y_prob_list = [a.squeeze().tolist() for a in y_prob_list]
+    if cnn:
+        y_pred_list[0] = 1-y_pred_list[0]
     return y_pred_list[0], round(y_prob_list[0], 4)

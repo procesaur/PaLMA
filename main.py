@@ -1,7 +1,7 @@
 from flask import Flask, request, Response, render_template, make_response
-from helper import limit
+from helper import limit, cfg
 from os import environ
-from transformerworks import gengen, full_eval, visualize, modellist
+from transformerworks import gengen, full_eval, visualize
 
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ app.config["DEBUG"] = False
 
 @app.route('/')
 def home():
-    return render_template('index.html', data=modellist)
+    return render_template('index.html', cfg=cfg)
 
 
 @app.route('/4api')

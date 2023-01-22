@@ -1,4 +1,10 @@
 from os import name, remove
+from json import load
+from os import path as px
+
+
+with open(px.join(px.dirname(__file__), "config.json"), "r", encoding="utf-8") as jf:
+    cfg = load(jf)
 
 
 def limit(x, min, max):

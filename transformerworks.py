@@ -1,19 +1,14 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from torch import randint as torch_rand
 from random import randint
-from helper import limit, perp2prob
+from helper import limit, cfg
 from math import exp
 from preprocessing.preprocessing import get_preprocess
 from preprocessing.tokenizer import sr_tokenize
 from torchworks import netpass, tensor2device
-from json import load
-from os import path as px
 
 
-with open(px.join(px.dirname(__file__), "modelname-cache.json"), "r", encoding="utf-8") as jf:
-    modellist = load(jf)
 initiated_models = {}
-lock = True
 
 
 def gengen(text, model, length, temp, alt, cn):
@@ -36,7 +31,7 @@ def full_eval(text):
     tokens = []
     for mod in mods:
         perps[mod] = perplexity(mod, text)
-        vectors[mod], tokens = inspect(mod, text, step=5)
+        vectors[mod], tokens = inspect(mod, text, step=3)
 
     ps = [1/perps[x] for x in perps]
     vs = [[1/y for y in vectors[x]] for x in vectors]
@@ -180,7 +175,7 @@ def text2tokentensors(tokenizer, text):
 
 def ini(modelname):
     if modelname not in initiated_models:
-        if not lock or modelname in modellist:
+        if not cfg["lock"] or modelname in cfg["models"]:
             initiated_models[modelname] = tensor2device(AutoModelForCausalLM.from_pretrained(modelname)),\
                                           AutoTokenizer.from_pretrained(modelname)
     model, tokenizer = initiated_models[modelname]

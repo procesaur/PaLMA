@@ -1,0 +1,40 @@
+{
+  "lock": false,
+  "models":["procesaur/gpt2-srlat", "procesaur/gpt2-srlat-sem", "procesaur/gpt2-srlat-synt", "gpt2"],
+  "inputmax": 300,
+  "inputs": {
+    "visualisation": {
+      "step": {
+        "label": "Slider window size:",
+        "min": 2,
+        "max": 10,
+        "value": 3,
+        "step": 1
+      }
+    },
+    "generation": {
+      "len": {
+        "label": "Text length (tokens):",
+        "min": 1,
+        "max": 100,
+        "value": 10,
+        "step": 1
+      },
+      "temp": {
+        "label": "Temperature (creativity):",
+        "min": 0,
+        "max": 1,
+        "value": 0.7,
+        "step": 0.01
+      },
+      "count": {
+        "label": "Number of outputs:",
+        "min": 1,
+        "max": 10,
+        "value": 3,
+        "step": 1
+      }
+    }
+  }
+
+}

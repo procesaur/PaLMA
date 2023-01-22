@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
     <script>
-        function req(){
-            var html_string= "Request sent!";
-            document.getElementById('if').src = "data:text/html;charset=utf-8," + escape(html_string);
-        }
         function help(){
             document.getElementById('if').src = "/help";
         }
@@ -17,38 +13,43 @@
 <body>
 <div class="half">
     <h2>Input text to process or to use as context <span class="help" onclick="help()">?</span></h2>
-    <form target="if" method="post" onsubmit="req()">
-        <textarea required maxlength="300" rows="4" name="data" placeholder="Type here..."></textarea>
+    <form target="if" method="post">
+        <textarea required maxlength='{{cfg["inputmax"]}}' rows="4" name="data" placeholder="Type here..."></textarea>
             <br/>
         <b style="margin:auto; margin:40px">Select language model*:
-        <input type="text" name="model" placeholder="hugggingface model name" list="models-list"/></b>
+        <input required type="text" name="model" value='{{cfg["models"][0]}}' placeholder="hugggingface model name" list="models-list"/></b>
             <br/>
         <section>
-            <h3>Text perplexity visualisation </h3>
-            Slider size: <input type="number" min="2" max="10" name="step" placeholder="5"/> (max 10)
-            <input type = "submit" name="pv" value="Visualize" formaction="/api"  style="float:right" />
+            <h3>Text perplexity visualisation
+                <input type = "submit" name="pv" value="Visualize" formaction="/api"  style="float:right" />
+            </h3>
+
+            {% for x, y in cfg["inputs"]["visualisation"].items() %}
+            <label>{{y["label"]}}</label>
+            <input type="range" min='{{y["min"]}}' max='{{y["max"]}}' value='{{y["value"]}}' step='{{y["step"]}}'
+                   class="slider" name="{{x}}" oninput="this.nextElementSibling.value = this.value">
+            <output>{{y["value"]}}</output>
             <br/>
+            {% endfor %}
+
         </section>
 
         <section>
-            <h3>Generation (GPT-2 only)</h3>
+            <h3>Generation (GPT-2 only)
+                <input type = "submit" name="gen" value="Generate" formaction="/api"/>
+            </h3>
 
-                Text length (in tokens):
-                <input type="number" name="len" placeholder="10" min="1" max="100" /> (max 100)
+            {% for x, y in cfg["inputs"]["generation"].items() %}
+            <label>{{y["label"]}}</label>
+            <input type="range" min='{{y["min"]}}' max='{{y["max"]}}' value='{{y["value"]}}' step='{{y["step"]}}'
+                   class="slider" name="{{x}}" oninput="this.nextElementSibling.value = this.value">
+            <output>{{y["value"]}}</output>
             <br/>
-                Temperature (from most conservative to most creative):
-                <input type="range" min="0" max="1" value="0.75" step="0.01" class="slider" name="temp">
-            <br/>
+            {% endfor %}
 
-            <h4>Composite generation (optional parameters)</h4>
-            Select second model*:
-                <input type="text" name="alt" placeholder="hugggingface model name" list="models-list"/>
-            <br/>
-                Input number of candidates:
-                <input type="number" name="count" placeholder="5" min="1" max="10" /> (max 10)
+            Select second model (for evaluation)*:
+                <input type="text" name="alt"  placeholder="hugggingface model name" list="models-list"/>
 
-            <input type = "submit" name="gen" value="Generate" formaction="/api"/>
-            <br/>
         </section>
 
         <section>
@@ -58,10 +59,10 @@
     <div>* Will download for local instance! Some models require additional preprocessing files!</div>
 </div>
 
-<iframe class="half" name="if" id="if"></iframe>
+<iframe class="half" name="if" id="if" src="/help"></iframe>
 
 <datalist id="models-list">
-    {% for item in data %}
+    {% for item in cfg["models"] %}
         <option value="{{item}}"></option>
     {% endfor %}
 </datalist>
