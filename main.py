@@ -43,18 +43,20 @@ def process_req(req):
     query_parameters = req.args
     if len(query_parameters) == 0:
         query_parameters = req.form
-    text = limit(query_parameters.get('data'), 1, 300)
+    text = limit(query_parameters.get('data'), 1, cfg["inputmax"])
     model = query_parameters.get('model')
     if "eval" in query_parameters:
         args = [text]
     elif "pv" in query_parameters:
-        step = limit(int(query_parameters.get('step')), 2, 10)
+        x = cfg["inputs"]["visualisation"]
+        step = limit(int(query_parameters.get('step')), x["step"]["min"], x["step"]["max"])
         args = [text, model, step]
     else:
-        length = limit(int(query_parameters.get('len')), 1, 100)
-        temp = limit(float(query_parameters.get('temp')), 0, 1)
+        x = cfg["inputs"]["generation"]
+        length = limit(int(query_parameters.get('len')), x["len"]["min"], x["len"]["max"])
+        temp = limit(float(query_parameters.get('temp')), x["temp"]["min"], x["temp"]["max"])
         if query_parameters.get('count'):
-            cn = limit(int(query_parameters.get('count')), 1, 10)
+            cn = limit(int(query_parameters.get('count')), x["count"]["min"], x["count"]["max"])
         else:
             cn = 1
         alt = query_parameters.get('alt')
