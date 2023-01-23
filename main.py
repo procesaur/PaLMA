@@ -61,6 +61,14 @@ def process_req(req):
             cn = 1
         alt = query_parameters.get('alt')
         args = [text, model, length, temp, alt, cn]
+
+    if "log" in cfg and cfg["log"]:
+        try:
+            with open(cfg["log"], "a+", encoding="utf-8") as lf:
+                lf.write(request.remote_addr + "\t" + "\t".join([str(x) for x in args]) + "\n")
+        except:
+            pass
+
     return args
 
 
