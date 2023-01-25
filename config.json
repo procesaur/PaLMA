@@ -1,6 +1,6 @@
 {
   "lock": false,
-  "log" : "/var/log/plma.log",
+  "log" : "/var/log/palma.log",
   "models":["procesaur/gpt2-srlat", "procesaur/gpt2-srlat-sem", "procesaur/gpt2-srlat-synt", "gpt2"],
   "inputmax": 300,
   "inputs": {

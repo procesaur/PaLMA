@@ -1,8 +1,8 @@
-# Parallel language models and applications
+# PaLMA - Parallel Language Models and Applications
 
 <div>
 
-## About
+##  About
 
 Application is developed in support of the University of Belgrade doctoral dissertation _Composite pseudogrammars based on parallel language models of Serbian_ by Mihailo Škorić under the supervision of Ranka Stanković.
 
