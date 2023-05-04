@@ -62,7 +62,7 @@ def gentext(modelname, inp="", length=100, temp=0.75, samples=1):
     cl = context.data["input_ids"].size()[1]
 
     for x in range(samples):
-        output = generate(model, context=context, length=length+cl, temperature=temp)
+        output = generate(model, context=context, length=length+cl, temperature=temp, tokenizer=tokenizer)
 
         decoded_output = []
         for sample in output:
@@ -86,12 +86,13 @@ def gentext_plus(model, alt, inp="", length=1024,  temp=0.2, samples=1):
     return outs, vals, best, label
 
 
-def generate(model, context, length, temperature):
+def generate(model, context, length, temperature, tokenizer):
     length = limit(length, 1, 1024)
     encoded_input = tensor2device(context)
     output = model.generate(
         **encoded_input,
-        bos_token_id=randint(1, 50000),
+        bos_token_id=tokenizer.bos_token_id,
+        eos_token_id=tokenizer.eos_token_id,
         do_sample=True,
         top_k=0,
         max_length=length,
@@ -99,7 +100,6 @@ def generate(model, context, length, temperature):
         no_repeat_ngram_size=3,
         # top_p=0.95,
         num_return_sequences=1,
-        pad_token_id=0
         )
 
     return output
