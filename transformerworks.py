@@ -4,7 +4,7 @@ from random import randint
 from helper import limit, cfg
 from math import exp
 from preprocessing.preprocessing import get_preprocess
-from preprocessing.tokenizer import sr_tokenize
+from preprocessing.tokenizer import sr_tokenize, gpt_tokenize
 from torchworks import netpass, tensor2device
 
 
@@ -118,7 +118,7 @@ def perplexity(model, text):
 
 
 def inspect(model, text, step, change=True):
-    tokens = sr_tokenize(text)
+    tokens = gpt_tokenize(text)
     tokens = [x for x in tokens if x != ""]
     tl = len(tokens)
 
@@ -129,7 +129,8 @@ def inspect(model, text, step, change=True):
 
     togo = tokens[0:step]
     resto = tokens[step:tl]
-    ini = perplexity(model, "".join(togo))
+    inp = "".join(togo)
+    ini = perplexity(model, inp)
     vals = [ini for x in togo]
 
     for i, r in enumerate(resto):
@@ -137,7 +138,8 @@ def inspect(model, text, step, change=True):
         vals.append(0)
         togo.pop(0)
         togo.append(r)
-        ini = perplexity(model, "".join(togo))
+        inp = "".join(togo)
+        ini = perplexity(model, inp)
         n = [ini for x in togo]
 
         for x in range(step):
