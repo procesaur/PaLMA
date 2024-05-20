@@ -109,8 +109,14 @@ def perplexity(model, text):
     model, tokenizer, prep = ini(model)
     if prep is not None:
         text = prep(text)
+    text = text.replace("$$", "")
+    text = text.replace("<e>", "")
+    if text == "":
+        text = "<e>"
 
     tokens = text2tokentensors(tokenizer, text)
+    if tokens.size()[1] > 1024:
+        tokens = tokens.narrow(1, 0, 1024)
     outputs = model(tokens, labels=tokens)
     loss = outputs[0]
     perp = exp(loss)
